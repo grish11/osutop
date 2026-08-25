@@ -5,7 +5,8 @@ from textual import work
 from screens.variableDetail import VariableDetailScreen
 
 import shutil
-import subprocess
+import subprocess, os
+
 
 
 # Functions -------------------------------------------
@@ -21,7 +22,9 @@ def getAudioInfo() -> dict[str, str]:
     if not shutil.which("pw-top"):
         return empty
     try:
-        result = subprocess.run(["pw-top", "-b", "--iterations=3"],capture_output=True,text=True,timeout=5)
+        env = os.environ.copy()
+        env["LC_ALL"] = "C"
+        result = subprocess.run(["pw-top", "-b", "--iterations=3"],capture_output=True,text=True,timeout=5, env=env)
     except subprocess.TimeoutExpired:
         return empty
 
