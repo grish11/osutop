@@ -53,8 +53,8 @@ def getAudioInfo() -> dict[str, str]:
         try:
             bufferSize = int(parts[2])
             sampleRate = int(parts[3])
-            waitRatio = float(parts[6])
-            busyRatio = float(parts[7])
+            waitRatio = float(parts[6].replace(',', '.'))
+            busyRatio = float(parts[7].replace(',', '.'))
             xrunCount = int(parts[8])
         except ValueError:
             continue
